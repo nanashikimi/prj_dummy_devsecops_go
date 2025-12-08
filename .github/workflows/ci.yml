@@ -76,9 +76,9 @@ jobs:
           path: sbom.json
 
       - name: Run tfsec (IaC for security scan)
-        uses: aquasecurity/tfsec-action@v1
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.3.1
         with:
-          args: iac
+          tfsec_args: iac
 
 
 
