@@ -60,5 +60,19 @@ jobs:
           ignore-unfixed: true
           exit-code: 1
 
+      - name: Generate Syft SBOM (CycloneDX) by container image
+        uses: anchore/syft-action@v0.15.0
+        with:
+          image: app-dummy
+          format: cyclonedx-json
+          output-file: sbom.json
+
+      - name: Save SBOM artifact(in order to have possibility to download)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+
+
 
 
