@@ -17,6 +17,9 @@ WORKDIR /app
 
 COPY --from=builder /app/server .
 
+RUN adduser -D -u 10001 appuser
+USER appuser
+
 EXPOSE 8080
 
 CMD ["./server"]
