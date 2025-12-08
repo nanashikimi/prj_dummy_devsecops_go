@@ -63,6 +63,7 @@ jobs:
       - name: Generate Syft SBOM (CycloneDX) by container image
         uses: anchore/sbom-action@v0.15.0
         with:
+          upload-artifact: false
           image: app-dummy
           format: cyclonedx-json
           output-file: sbom.json
