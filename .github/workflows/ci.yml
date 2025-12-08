@@ -35,3 +35,9 @@ jobs:
 
       - name: Run golangci-lint
         run: golangci-lint run
+
+      - name: Run Gosec (as SAST)
+        uses: securego/gosec@master
+        with:
+          args: ./...
+
