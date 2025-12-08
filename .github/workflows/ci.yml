@@ -49,4 +49,16 @@ jobs:
           ignore-unfixed: true
           exit-code: 1
 
+      - name: Build Docker image
+        run: docker build -t app-dummy .
+
+      - name: Trivy image scan (for container security)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: app-dummy
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
+
+
 
