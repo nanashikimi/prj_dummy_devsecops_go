@@ -41,3 +41,12 @@ jobs:
         with:
           args: ./...
 
+      - name: Trivy fs scan (SCA + Secret and Config scanning)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
+
+
