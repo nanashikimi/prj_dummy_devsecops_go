@@ -41,10 +41,11 @@ jobs:
         with:
           args: ./...
 
-      - name: Trivy fs scan (SCA + Secret and Config scanning)
+      - name: Trivy fs scan (SCA + Config scanning)
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: fs
+          scanners: vuln, secret, config
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: 1
@@ -73,6 +74,12 @@ jobs:
         with:
           name: sbom
           path: sbom.json
+
+      - name: Run tfsec (IaC for security scan)
+        uses: aquasecurity/tfsec-action@v1
+        with:
+          args: iac
+
 
 
 
