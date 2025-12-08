@@ -79,7 +79,7 @@ jobs:
       - name: Run tfsec (IaC for security scan)
         uses: aquasecurity/tfsec-pr-commenter-action@v1.3.1
         with:
-          tfsec_args: iac
+          working_directory: iac
 
 
 
