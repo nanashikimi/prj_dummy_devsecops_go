@@ -51,13 +51,13 @@ jobs:
           exit-code: 1
 
       - name: Semgrep Scan(SAST) with SARIF creation
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: |
-            p/golang
-            p/owasp-top-ten
-          publishToken: ${{ secrets.GITHUB_TOKEN }}
-          ci: false
+        run: |
+          semgrep scan \
+            --config p/golang \
+            --config p/owasp-top-ten \
+            --sarif-output semgrep.sarif .
+          echo "=== SEMGREP SARIF OUTPUT ==="
+          cat semgrep.sarif
 
 
       - name: Build Docker image
