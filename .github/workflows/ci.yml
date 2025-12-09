@@ -56,9 +56,7 @@ jobs:
           config: |
             p/golang
             p/owasp-top-ten
-          generateSarif: true
-          output: semgrep.sarif
-          publishSarif: true
+          publishToken: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Build Docker image
