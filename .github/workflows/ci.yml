@@ -57,6 +57,7 @@ jobs:
             p/golang
             p/owasp-top-ten
           generateSarif: true
+          output: semgrep.sarif
           publishSarif: true
 
 
