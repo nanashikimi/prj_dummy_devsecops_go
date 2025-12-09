@@ -80,6 +80,7 @@ jobs:
         uses: aquasecurity/tfsec-pr-commenter-action@v1.3.1
         with:
           working_directory: iac
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
 
 
