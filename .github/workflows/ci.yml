@@ -50,9 +50,8 @@ jobs:
           ignore-unfixed: true
           exit-code: 1
 
-      - name: Installing Semgrep
-        uses: returntocorp/semgrep-action@v1
-
+      - name: Install Semgrep CLI
+        run: pip install semgrep
 
       - name: Semgrep Scan(SAST) with SARIF creation
         run: |
