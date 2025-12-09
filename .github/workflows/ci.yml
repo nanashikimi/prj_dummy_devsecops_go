@@ -57,6 +57,7 @@ jobs:
             p/golang
             p/owasp-top-ten
           publishToken: ${{ secrets.GITHUB_TOKEN }}
+          ci: false
 
 
       - name: Build Docker image
