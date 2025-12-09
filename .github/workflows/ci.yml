@@ -50,6 +50,16 @@ jobs:
           ignore-unfixed: true
           exit-code: 1
 
+      - name: Semgrep Scan(SAST) with SARIF creation
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: |
+            p/golang
+            p/owasp-top-ten
+          generateSarif: true
+          publishSarif: true
+
+
       - name: Build Docker image
         run: docker build -t app-dummy .
 
