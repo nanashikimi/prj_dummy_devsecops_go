@@ -14,6 +14,7 @@ func main() {
 	// SAST works, now exclude this single failure
 	// This insecure usage would be fixed for prod, where we configure timeouts for http.Server, so:
 	// #nosec G114
+	// nosemgrep: go.lang.security.audit.net.use-tls.use-tls
 	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatal(err)
 	}
