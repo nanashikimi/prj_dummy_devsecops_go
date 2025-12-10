@@ -55,10 +55,7 @@ jobs:
 
       - name: Semgrep Scan(SAST) with SARIF creation
         run: |
-          semgrep scan \
-            --config p/golang \
-            --config p/owasp-top-ten \
-            --sarif-output semgrep.sarif .
+          semgrep scan --config p/golang --config p/owasp-top-ten --sarif-output semgrep.sarif .
           echo "=== SEMGREP SARIF OUTPUT ==="
           cat semgrep.sarif
 
