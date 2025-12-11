@@ -1,5 +1,9 @@
 name: CI
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   push:
     branches: [ "main" ]
@@ -60,7 +64,7 @@ jobs:
           cat semgrep.sarif
 
       - name: Initialize CodeQL(yes, it needs to be initialized)
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: go
 
