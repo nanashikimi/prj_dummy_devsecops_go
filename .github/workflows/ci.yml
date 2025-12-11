@@ -100,7 +100,6 @@ jobs:
         uses: anchore/sbom-action@v0.15.0
         with:
           #when messed up with version, set syft-version
-          syft-version: v1.3.1
           upload-artifact: false
           image: app-dummy
           format: cyclonedx-json
