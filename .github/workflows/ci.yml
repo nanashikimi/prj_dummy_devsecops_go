@@ -24,7 +24,12 @@ jobs:
           go-version: '1.22'
 
       - name: Install dependencies
-        run: go mod tidy
+        run: |
+          go mod tidy
+          if [ ! -f go.sum ]; then
+            echo "go.sum not found — creating an empty one"
+            touch go.sum
+          fi
 
       - name: Run build
         run: go build -v ./...
