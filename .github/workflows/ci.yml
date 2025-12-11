@@ -18,6 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      #after set up go mod tidy will recreate go.sum if needed
       - name: Create empty go.sum(temporarily)
         run: |
           if [ ! -f go.sum ]; then
@@ -98,6 +99,8 @@ jobs:
       - name: Generate Syft SBOM (CycloneDX) by container image
         uses: anchore/sbom-action@v0.15.0
         with:
+          #when messed up with version, set syft-version
+          syft-version: v1.3.1
           upload-artifact: false
           image: app-dummy
           format: cyclonedx-json

@@ -1,0 +1,17 @@
+1) CVE
+- Grype
+- OSV
+- Dependabot || Renovate
+
+2) SBOM
+- CycloneDX CLI(at least locally)
+- SBOM diff
+- Improve Syft pipeline
+
+3) CI/CD
+- Cosign(already set up locally)
+- Deploy through Kind && Helm
+
+4) Enterprise
+- Security politics(at least watch something on it)
+- Anchore Enterprise(inquire)
