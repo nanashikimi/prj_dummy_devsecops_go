@@ -59,6 +59,15 @@ jobs:
           echo "=== SEMGREP SARIF OUTPUT ==="
           cat semgrep.sarif
 
+      - name: Initialize CodeQL(yes, it needs to be initialized)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: go
+
+      - name: Upload Semgrep SARIF to GitHub Security Tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
 
       - name: Build Docker image
         run: docker build -t app-dummy .
@@ -91,6 +100,13 @@ jobs:
         with:
           working_directory: iac
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Checkov IaC scan(Not needed in other pojects, but it s learning project, with no prod)
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: iac
+          quiet: false
+          soft_fail: false
 
 
 

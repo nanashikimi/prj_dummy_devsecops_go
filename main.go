@@ -12,6 +12,20 @@ func main() {
 	addr := ":8080"
 	log.Printf("starting server on %s", addr)
 	// SAST works, now exclude this single failure
+	// Counterexample with ErrServerClosed check:
+	/*
+	   server := &http.Server{
+	       Addr:         addr,
+	       Handler:      mux,
+	       ReadTimeout:  5 * time.Second,
+	       WriteTimeout: 10 * time.Second,
+	       IdleTimeout:  120 * time.Second,
+	   }
+
+	   if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+	       log.Fatal(err)
+	   }
+	*/
 	// This insecure usage would be fixed for prod, where we configure timeouts for http.Server, so:
 	// #nosec G114
 	// nosemgrep: go.lang.security.audit.net.use-tls.use-tls
