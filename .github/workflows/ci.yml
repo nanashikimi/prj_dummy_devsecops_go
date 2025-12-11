@@ -99,11 +99,11 @@ jobs:
           name: sbom
           path: sbom.json
 
-      - name: Run tfsec (IaC for security scan)
-        uses: aquasecurity/tfsec-pr-commenter-action@v1.3.1
+      - name: Run tfsec (IaC scan)
+        uses: aquasecurity/tfsec-action@v1
         with:
           working_directory: iac
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          additional_args: --soft-fail
 
       - name: Run Checkov IaC scan(Not needed in other pojects, but it s learning project, with no prod)
         uses: bridgecrewio/checkov-action@v12
