@@ -104,6 +104,7 @@ jobs:
         with:
           working_directory: iac
           additional_args: --soft-fail
+          version: v1.28.14
 
       - name: Run Checkov IaC scan(Not needed in other pojects, but it s learning project, with no prod)
         uses: bridgecrewio/checkov-action@v12
