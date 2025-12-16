@@ -1,2 +1,5 @@
 testdata/fuzz/
 /app
+
+sbom.json
+*.sbom.json
