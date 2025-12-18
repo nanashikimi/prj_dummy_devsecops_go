@@ -36,7 +36,7 @@ jobs:
 
       - name: OSV scan (dependencies)
         uses: google/osv-scanner-action@v2.3.1
-        inputs:
+        with:
           scan-args: |
             -r .
         continue-on-error: true
