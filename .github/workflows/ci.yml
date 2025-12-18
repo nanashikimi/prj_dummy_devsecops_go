@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       #after set up go mod tidy will recreate go.sum if needed
       - name: Create empty go.sum(temporarily)
