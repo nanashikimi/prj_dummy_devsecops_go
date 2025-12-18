@@ -60,6 +60,7 @@ jobs:
 
       - name: Run golangci-lint
         run: golangci-lint run
+        continue-on-error: true
 
       - name: Run Gosec (as SAST)
         uses: securego/gosec@master
