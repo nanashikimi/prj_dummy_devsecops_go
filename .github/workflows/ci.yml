@@ -43,6 +43,8 @@ jobs:
             --output osv-report.json
         continue-on-error: true
 
+      - name: Show OSV report
+        run: cat osv-report.json
 
       - name: Run build
         run: go build -v ./...
