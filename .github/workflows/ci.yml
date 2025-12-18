@@ -39,6 +39,8 @@ jobs:
         with:
           scan-args: |
             -r .
+            --format json
+            --output osv-report.json
         continue-on-error: true
 
 
