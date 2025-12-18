@@ -136,7 +136,7 @@ jobs:
           path: sbom.json
 
       - name: Run tfsec (IaC scan)
-        uses: aquasecurity/tfsec-action@v1.0.0
+        uses: aquasecurity/tfsec-action@v1.0.3
         with:
           working_directory: iac
           additional_args: --soft-fail
