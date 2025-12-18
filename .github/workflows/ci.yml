@@ -27,9 +27,9 @@ jobs:
           fi
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: '1.22'
+          go-version: '1.23'
 
       - name: Install dependencies
         run: go mod tidy
@@ -56,9 +56,7 @@ jobs:
         run: go test -fuzz=Fuzz -fuzztime=5s ./...
 
       - name: Install golangci-lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.61.0
+        uses: golangci/golangci-lint-action@v9
 
       - name: Run golangci-lint
         run: golangci-lint run
@@ -124,7 +122,11 @@ jobs:
           format: cyclonedx-json
           output-file: sbom.json
 
-      # --- Grype: CVE scan based on SBOM ---
+      - name: Install Grype CLI
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh \
+            | sudo sh -s -- -b /usr/local/bin
+
       - name: Grype scan (SBOM)
         run: grype sbom:sbom.json -o table
 

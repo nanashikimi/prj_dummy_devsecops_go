@@ -1,6 +1,6 @@
 1) CVE
-- Grype
-- OSV
+- Grype(ok)
+- OSV(ok, but filter output(e.g. aliases only))
 - Dependabot || Renovate
 
 2) SBOM
