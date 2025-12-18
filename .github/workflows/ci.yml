@@ -35,8 +35,8 @@ jobs:
         run: go mod tidy
 
       - name: OSV scan (dependencies)
-        uses: google/osv-scanner-action@v1
-        with:
+        uses: google/osv-scanner-action@v2.3.1
+        inputs:
           scan-args: |
             -r .
         continue-on-error: true
