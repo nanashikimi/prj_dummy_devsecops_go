@@ -115,7 +115,7 @@ jobs:
           exit-code: 1
 
       - name: Generate Syft SBOM (CycloneDX) by container image
-        uses: anchore/sbom-action@v0.15.0
+        uses: anchore/sbom-action@v0.21.0
         with:
           #when messed up with version, set syft-version
           upload-artifact: false
