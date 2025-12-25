@@ -133,7 +133,7 @@ jobs:
 
 
       - name: Save SBOM artifact(in order to have possibility to download)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: sbom
           path: sbom.json
