@@ -8,7 +8,8 @@ linters:
     - govet
     - errcheck
     - staticcheck
-    - gosimple
     - unused
     - ineffassign
+    - gosec
+    - gocritic
 
