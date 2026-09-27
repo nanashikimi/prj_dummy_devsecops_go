@@ -10,6 +10,5 @@ linters:
     - staticcheck
     - unused
     - ineffassign
-    - gosec
     - gocritic
 

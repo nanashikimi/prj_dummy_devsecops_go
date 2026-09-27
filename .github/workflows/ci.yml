@@ -2,16 +2,15 @@ name: CI
 
 permissions:
   contents: read
-  security-events: write
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test" ] #check by push to test branch
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" ] #check by pull to main branch
 
 jobs:
-  build-test-lint:
+  test-lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,18 +33,6 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
-      - name: OSV scan (dependencies)
-        uses: google/osv-scanner-action/osv-scanner-action@v2.3.1
-        with:
-          scan-args: |
-            -r .
-            --format json
-            --output osv-report.json
-        continue-on-error: true
-
-      - name: Show OSV report
-        run: cat osv-report.json
-
       - name: Run build
         run: go build -v ./...
 
@@ -62,19 +49,20 @@ jobs:
         run: golangci-lint run
         continue-on-error: true
 
+  sast:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout сode
+        uses: actions/checkout@v4
+
       - name: Run Gosec (as SAST)
         uses: securego/gosec@master
         with:
           args: ./...
-
-      - name: Trivy fs scan (SCA + Config scanning)
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: fs
-          scanners: vuln,secret,config
-          severity: HIGH,CRITICAL
-          ignore-unfixed: true
-          exit-code: 1
 
       - name: Install Semgrep CLI
         run: pip install semgrep
@@ -94,9 +82,90 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: semgrep.sarif
+  sca:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: OSV scan (dependencies)
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.1
+        with:
+          scan-args: |
+            -r .
+            --format json
+            --output osv-report.json
+        continue-on-error: true
+
+      - name: Show OSV report
+        run: cat osv-report.json
+
+      - name: Trivy fs scan (SCA + Config scanning)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scanners: vuln,secret,config
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
+
+  iac-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tfsec (IaC scan)
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          working_directory: iac
+          additional_args: --soft-fail
+          version: v1.28.14
+
+      - name: Run Checkov IaC scan(Not needed in other pojects, but it s learning project, with no prod)
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: iac
+          quiet: false
+          soft_fail: false
+
+  container-image:
+    runs-on: ubuntu-latest
+    needs: test-lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Build Docker image
         run: docker build -t app-dummy .
+
+      - name: Save Docker image as tar
+        run: docker save app-dummy:latest -o app-dummy.tar
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-dummy-image
+          path: app-dummy.tar
+
+  container-security:
+    runs-on: ubuntu-latest
+    needs: container-image
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-dummy-image
+
+      - name: Load Docker Image
+        run: docker load -i app-dummy.tar
 
       - name: Grype scan (container image)
         uses: anchore/scan-action@v3
@@ -138,19 +207,12 @@ jobs:
           name: sbom
           path: sbom.json
 
-      - name: Run tfsec (IaC scan)
-        uses: aquasecurity/tfsec-action@v1.0.0
-        with:
-          working_directory: iac
-          additional_args: --soft-fail
-          version: v1.28.14
 
-      - name: Run Checkov IaC scan(Not needed in other pojects, but it s learning project, with no prod)
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          directory: iac
-          quiet: false
-          soft_fail: false
+
+
+
+
+
 
 
 
