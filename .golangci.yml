@@ -12,5 +12,3 @@ linters:
     - unused
     - ineffassign
 
-issues:
-  exclude-use-default: false
