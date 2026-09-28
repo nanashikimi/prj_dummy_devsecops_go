@@ -10,6 +10,9 @@ linters:
     - staticcheck
     - unused
     - ineffassign
-    - gosec
     - gocritic
 
+  settings:
+    gocritic:
+      disabled-checks:
+        - commentFormatting

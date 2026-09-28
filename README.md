@@ -8,7 +8,7 @@ This isn't a full project, just a training for learning DevSecOps.
 
 ## Endpoints
 
-- `GET /healthz` – returns `ok`
+- `GET /health` – returns `ok`
 - `GET /?name=YourName` – returns `hello, YourName`
 
 ## Run
