@@ -4,6 +4,7 @@ import (
 	"html"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -11,7 +12,11 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/", helloHandler)
-	addr := ":8080"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	addr := ":" + port
 	log.Printf("starting server on %s", addr)
 	// SAST works, now exclude this single failure
 	// Configure timeouts for http.Server

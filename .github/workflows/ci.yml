@@ -197,6 +197,12 @@ jobs:
           curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh \
             | sudo sh -s -- -b /usr/local/bin
 
+      - name: Upgrade Grype Database
+        run: grype db update
+
+      - name: Check Geŕypre DB Status
+        run: grype db status
+
       - name: Grype scan (SBOM)
         run: grype sbom:sbom.json -o table
 
