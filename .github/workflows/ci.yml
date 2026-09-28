@@ -168,7 +168,7 @@ jobs:
         run: docker load -i app-dummy.tar
 
       - name: Grype scan (container image)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v7
         with:
           image: app-dummy
           fail-build: false     #just for learning project
