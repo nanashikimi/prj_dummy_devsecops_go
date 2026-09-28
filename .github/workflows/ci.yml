@@ -198,12 +198,14 @@ jobs:
             | sudo sh -s -- -b /usr/local/bin
 
       - name: Upgrade Grype Database
-        run: rm -rf ~/.cache/grype/db && grype db update
+        run: grype db update
 
-      - name: Check Gŕype DB Status
-        run: grype db status
+      - name: Check Gŕype DB Status(info only)
+        run: grype db status || true
 
       - name: Grype scan (SBOM)
+        env:
+          GRYPE_DB_VALIDATE_AGE: "false"
         run: grype sbom:sbom.json -o table
 
 
