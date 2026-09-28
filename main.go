@@ -17,8 +17,8 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	//addr := ":" + port
-	//Added(decided to fix the issue G706, it has low severity though):
+	// addr := ":" + port
+	// Added(decided to fix the issue G706, it has low severity though):
 	portNumber, err := strconv.Atoi(port)
 	if err != nil || portNumber < 1 || portNumber > 65535 {
 		portNumber = 8080

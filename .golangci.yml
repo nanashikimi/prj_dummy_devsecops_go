@@ -12,3 +12,7 @@ linters:
     - ineffassign
     - gocritic
 
+  settings:
+    gocritic:
+      disabled-checks:
+        - commentFormatting
