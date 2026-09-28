@@ -198,9 +198,9 @@ jobs:
             | sudo sh -s -- -b /usr/local/bin
 
       - name: Upgrade Grype Database
-        run: grype db update
+        run: rm -rf ~/.cache/grype/db && grype db update
 
-      - name: Check Geŕypre DB Status
+      - name: Check Gŕype DB Status
         run: grype db status
 
       - name: Grype scan (SBOM)
