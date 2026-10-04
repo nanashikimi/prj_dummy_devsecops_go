@@ -1,0 +1,22 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  deployment:
+    # only if CI successfully completed, watch how to do it
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Configure kubectl
+        run: echo "TODO"
+
+      - name: Deploy new image
+        run: echo "TODO"
+
+      - name: Wait for rollout
+        run: echo "TODO"
